@@ -10,9 +10,19 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                  <v-text-field name="email" label="Email" type="text" v-model="email"></v-text-field>
-                  <v-text-field id="password" name="password" label="Password" type="password"
-                    v-model="password"></v-text-field>
+                  <v-text-field
+                    name="email"
+                    label="Email"
+                    type="text"
+                    v-model="email"
+                  ></v-text-field>
+                  <v-text-field
+                    id="password"
+                    name="password"
+                    label="Password"
+                    type="password"
+                    v-model="password"
+                  ></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -25,36 +35,33 @@
       </v-container>
     </v-main>
   </v-app>
-
 </template>
 
 <script>
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
     return {
-      email: 'admin@gmail.com',
-      password: "123456"
-    }
+      email: "admin@vltv.com",
+      password: "123456",
+    };
   },
   methods: {
     async loginHandler() {
-      const data = { 'email': this.email, 'password': this.password }
+      const data = { email: this.email, password: this.password };
       console.log(data);
-      // try {
-      //   const response = await this.$auth.loginWith('local', { data: data })
-      //   console.log(response)
-      //   this.$auth.$storage.setUniversal('email', response.data.email)
-      //   await this.$auth.setUserToken(response.data.access_token, response.data.refresh_token)
-
-      // } catch (e) {
-      //   console.log(e.message)
-      // }
-    }
-  }
-}
+      try {
+        const response = await this.$auth.loginWith("local", { data: data });
+        console.log(response);
+        this.$auth.$storage.setUniversal("email", response.data.email);
+        await this.$auth.setUserToken(response.token, response.token);
+      } catch (e) {
+        console.log(e.message);
+      }
+    },
+  },
+};
 </script>
 
 <style>
-
 </style>

@@ -20,8 +20,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-  ],
+  css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -43,9 +42,52 @@ export default {
   },
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/auth-next',
+    '@nuxtjs/axios',
   ],
+
+  axios: {
+    baseURL: process.env.API_URL
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        scheme: 'refresh',
+        localStorage: {
+          prefix: 'auth.'
+        },
+        token: {
+          prefix: 'access_token.',
+          property: 'access_token',
+          maxAge: 86400,
+          type: 'Bearer'
+        },
+        refreshToken: {
+          prefix: 'refresh_token.',
+          property: 'refresh_token',
+          data: 'refresh_token',
+          maxAge: 60 * 60 * 24 * 15
+        },
+        user: {
+          property: 'user',
+          autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/login', method: 'post' },
+          refresh: { url: '/token/refresh/', method: 'post' },
+          user: { url: '/user', method: 'get' },
+          logout: { url: '/logout', method: 'post' },
+          getlist_job: { url: '/admin/bai-dang-tuyen', method: 'get' },
+          get_user: { url: 'admin/user/', method: 'get' },
+        },
+      }
+    }
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+
+
 }
