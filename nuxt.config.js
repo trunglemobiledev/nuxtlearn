@@ -84,6 +84,26 @@ export default {
       }
     }
   },
+  routes: {
+    middleware: 'auth',
+    routes: [
+      {
+        name: 'index',
+        path: '/',
+        component: 'pages/index.vue'
+      },
+      {
+        name: 'product',
+        path: '/product',
+        component: 'pages/product/index.vue'
+      },
+      {
+        name: 'product-one',
+        path: '/product/one',
+        component: 'pages/product/one.vue'
+      }
+    ]
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
